@@ -70,7 +70,7 @@ const Navbar = () => {
               </Text>
             </Flex>
           </Link>
-          <HStack>
+          <HStack display={{ base: "none", md: "inline-flex" }}>
             {links.map((link) => (
               <NavLink key={link.linkName} path={link.path}>
                 {link.linkName}
@@ -78,16 +78,54 @@ const Navbar = () => {
             ))}
           </HStack>
         </HStack>
-        <Flex>
+        <Flex alignItems="center">
           <NavLink>
             <Icon
               as={colorMode === "light" ? MoonIcon : SunIcon}
               alignItems="center"
               onClick={() => toggleColorMode()}
+              m={2}
             />
           </NavLink>
+          <Button
+            as={ReactLink}
+            to="/login"
+            fontSize="sm"
+            fontWeight={400}
+            variant="link"
+            p={2}
+          >
+            Sing In
+          </Button>
+          <Button
+            as={ReactLink}
+            to="/register"
+            fontSize="sm"
+            m={2}
+            p={2}
+            fontWeight={600}
+            variant="link"
+            _hover={{ bg: "orange.400" }}
+            bg="orange.500"
+            color="white"
+            display={{ base: "none", md: "inline-flex" }}
+          >
+            Sing Up
+          </Button>
         </Flex>
       </Flex>
+      {isOpen ? (
+        <Box pb={4} display={{ md: "none" }}>
+          <Stack as="nav" spacing={4}>
+            {links.map((link) => (
+              <NavLink key={link.linkName} path={link.path}>
+                {link.linkName}
+              </NavLink>
+            ))}
+            <NavLink path="/register">Sing Up</NavLink>
+          </Stack>
+        </Box>
+      ) : null}
     </Box>
   );
 };
