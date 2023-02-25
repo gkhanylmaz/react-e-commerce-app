@@ -2,7 +2,6 @@ import {
   Box,
   Flex,
   HStack,
-  VStack,
   IconButton,
   Icon,
   Link,
@@ -12,15 +11,8 @@ import {
   Stack,
   useColorMode,
   useColorModeValue,
-  Container,
 } from "@chakra-ui/react";
-import {
-  HamburIcon,
-  CloseIcon,
-  MoonIcon,
-  SunIcon,
-  HamburgerIcon,
-} from "@chakra-ui/icons";
+import { CloseIcon, MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { GiTechnoHeart } from "react-icons/gi";
 import { Link as ReactLink } from "react-router-dom";
 
