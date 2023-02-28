@@ -90,7 +90,7 @@ const ProductCard = ({ product }) => {
             <Button
               variant="ghost"
               display="flex"
-              disabled={product.stock <= 0}
+              isDisabled={product.stock <= 0}
             >
               <Icon as={FiShoppingCart} h={7} w={7} alignSelf="center" />
             </Button>
