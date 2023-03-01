@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Stack,
   Image,
@@ -11,10 +11,44 @@ import {
   Icon,
   Tooltip,
   Button,
+  HStack,
+  Text,
 } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { StarIcon } from "@chakra-ui/icons";
 import { Link as ReactLink } from "react-router-dom";
+
+const Rating = ({ rating, numReviews }) => {
+  const { iconSize, setIconSize } = useState("14px");
+  return (
+    <HStack spacing="2px">
+      <StarIcon size={iconSize} w="14px" color="orange.500"></StarIcon>
+      <StarIcon
+        size={iconSize}
+        w="14px"
+        color={rating >= 2 ? "orange.500" : "gray.200"}
+      ></StarIcon>
+      <StarIcon
+        size={iconSize}
+        w="14px"
+        color={rating >= 3 ? "orange.500" : "gray.200"}
+      ></StarIcon>
+      <StarIcon
+        size={iconSize}
+        w="14px"
+        color={rating >= 4 ? "orange.500" : "gray.200"}
+      ></StarIcon>
+      <StarIcon
+        size={iconSize}
+        w="14px"
+        color={rating >= 5 ? "orange.500" : "gray.200"}
+      ></StarIcon>
+      <Text fontSize="md" fontWeight="bold" pl="10px">{`${numReviews} ${
+        numReviews === 1 ? "Review" : "Reviews"
+      }`}</Text>
+    </HStack>
+  );
+};
 
 const ProductCard = ({ product }) => {
   return (
@@ -28,6 +62,7 @@ const ProductCard = ({ product }) => {
       rounded="lg"
       shadow="lg"
       position="relative"
+      justifyContent="space-between"
     >
       {product.isNew && (
         <Circle
@@ -67,10 +102,13 @@ const ProductCard = ({ product }) => {
           cursor="pointer"
           pt="2"
         >
-          <Box fontSize="2xl" fontWeight="semibold" lineHeight="tight">
+          <Box as="h4" fontSize="2xl" fontWeight="semibold" lineHeight="tight">
             {product.name}
           </Box>
         </Link>
+      </Flex>
+      <Flex>
+        <Rating {...product} />
       </Flex>
       <Flex justifyContent="space-between">
         <Box fontSize="2xl" color={useColorModeValue("gray.800", "white")}>
