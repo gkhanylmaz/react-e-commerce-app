@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Center, Wrap, WrapItem } from "@chakra-ui/react";
-import { products } from "../products";
+import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/ProductCard";
+import { getProduct } from "../redux/actions/productActions";
 
 const Product = () => {
+  const dispatch = useDispatch();
+
+  const productList = useSelector((state) => state.products);
+  const { loading, error, products } = productList;
+
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
   return (
     <Wrap minHeight="100vh" spacing="30px" justify="center">
       {products.map((product) => (

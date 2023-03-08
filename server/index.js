@@ -25,5 +25,5 @@ app.use("/api/products", productRoutes);
 const PORT = process.env.PORT || 3001;
 //Listen
 app.listen(PORT, () => {
-  console.log(`Server at running on the  port:http://localhost: ${PORT}`);
+  console.log(`Server at running on the  port:https://localhost: ${PORT}`);
 });
