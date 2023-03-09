@@ -7,16 +7,16 @@ const initialState = {
 };
 
 export const productSlice = createSlice({
-  name: "product",
+  name: "products",
   initialState,
   reducers: {
     setLoading: (state) => {
       state.loading = true;
     },
     setProducts: (state, { payload }) => {
+      state.products = payload;
       state.loading = false;
       state.error = null;
-      state.products = payload;
     },
     setError: (state, { payload }) => {
       state.loading = false;

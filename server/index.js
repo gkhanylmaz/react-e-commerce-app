@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 // Routes;
 
 import productRoutes from "./routes/productRoutes.js";
@@ -8,7 +9,10 @@ import productRoutes from "./routes/productRoutes.js";
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
   .then(() => {
     console.log("Connected to mongo");
   })
@@ -17,7 +21,7 @@ mongoose
   });
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use("/api/products", productRoutes);
 
