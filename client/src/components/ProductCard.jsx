@@ -18,7 +18,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { StarIcon } from "@chakra-ui/icons";
 import { Link as ReactLink } from "react-router-dom";
 
-const Rating = ({ rating, numReviews }) => {
+const Rating = ({ rating, numberOfReviews }) => {
   const { iconSize, setIconSize } = useState("14px");
   return (
     <HStack spacing="2px">
@@ -43,14 +43,16 @@ const Rating = ({ rating, numReviews }) => {
         w="14px"
         color={rating >= 5 ? "orange.500" : "gray.200"}
       ></StarIcon>
-      <Text fontSize="md" fontWeight="bold" pl="10px">{`${numReviews} ${
-        numReviews === 1 ? "Review" : "Reviews"
+      <Text fontSize="md" fontWeight="bold" pl="10px">{`${numberOfReviews} ${
+        numberOfReviews === 1 ? "Review" : "Reviews"
       }`}</Text>
     </HStack>
   );
 };
 
 const ProductCard = ({ product }) => {
+  console.log(product);
+
   return (
     <Stack
       p="2"
@@ -64,7 +66,7 @@ const ProductCard = ({ product }) => {
       position="relative"
       justifyContent="space-between"
     >
-      {product.isNew && (
+      {product.productIsNew && (
         <Circle
           size="10px"
           position="absolute"
@@ -89,7 +91,7 @@ const ProductCard = ({ product }) => {
             Sold Out
           </Badge>
         )}
-        {product.isNew && (
+        {product.productIsNew && (
           <Badge colorScheme="green" rounded="full" fontSize="0.8em">
             New
           </Badge>
