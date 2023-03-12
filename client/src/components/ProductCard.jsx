@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Stack,
   Image,
   Box,
-  useColorModeValue,
+  useColorModeValue as mode,
   Circle,
   Badge,
   Flex,
@@ -13,10 +14,12 @@ import {
   Button,
   HStack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { StarIcon } from "@chakra-ui/icons";
 import { Link as ReactLink } from "react-router-dom";
+import { addCartItem } from "../redux/actions/cartActions";
 
 const Rating = ({ rating, numberOfReviews }) => {
   const { iconSize, setIconSize } = useState("14px");
@@ -51,12 +54,33 @@ const Rating = ({ rating, numberOfReviews }) => {
 };
 
 const ProductCard = ({ product }) => {
-  console.log(product);
+  const toast = useToast();
+  const dispatch = useDispatch();
+  const cartInfo = useSelector((state) => state.cart);
+
+  const { cart } = cartInfo;
+
+  const addItem = (id) => {
+    if (cart.some((item) => item.id === id)) {
+      toast({
+        description: "This item is already in the cart",
+        status: "error",
+        isClosable: true,
+      });
+    } else {
+      dispatch(addCartItem(id, 1));
+      toast({
+        description: "Item has been added",
+        status: "success",
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Stack
       p="2"
-      bg={useColorModeValue("white", "gray.800")}
+      bg={mode("white", "gray.800")}
       spacing="3px"
       borderWidth="1px"
       minW="250px"
@@ -113,7 +137,7 @@ const ProductCard = ({ product }) => {
         <Rating {...product} />
       </Flex>
       <Flex justifyContent="space-between">
-        <Box fontSize="2xl" color={useColorModeValue("gray.800", "white")}>
+        <Box fontSize="2xl" color={mode("gray.800", "white")}>
           <Box as="span" color="gray.600" fontSize="lg">
             $
           </Box>
@@ -131,6 +155,7 @@ const ProductCard = ({ product }) => {
               variant="ghost"
               display="flex"
               isDisabled={product.stock <= 0}
+              onClick={() => addItem(product._id)}
             >
               <Icon as={FiShoppingCart} h={7} w={7} alignSelf="center" />
             </Button>
