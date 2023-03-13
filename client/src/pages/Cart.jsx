@@ -1,4 +1,5 @@
 import React from "react";
+import CartItem from "../components/CartItem";
 import {
   Stack,
   Wrap,
@@ -15,9 +16,12 @@ import {
 } from "@chakra-ui/react";
 
 import { Link as ReactLink } from "react";
+import { useSelector } from "react-redux";
 const Cart = () => {
+  const cartActions = useSelector((state) => state.cart);
+  const { error, loading, cart } = cartActions;
   return (
-    <Wrap>
+    <Wrap justify="center">
       {loading ? (
         <Stack direction="row" spacing={4}>
           <Spinner
@@ -39,7 +43,7 @@ const Cart = () => {
         <Alert status="warning">
           <AlertIcon />
           <AlertDescription>
-            <Link as={ReactLink} to="/products">
+            <Link as={ReactLink} to="/product">
               Click here to see our product.
             </Link>
           </AlertDescription>
@@ -60,7 +64,11 @@ const Cart = () => {
               <Heading fontSize="2xl" fontWeight="semibold">
                 Shopping Cart
               </Heading>
-              <Stack spacing="6">{/* {CartItem} */}</Stack>
+              <Stack spacing="6">
+                {cart.map((cartItem) => (
+                  <CartItem {...cartItem} key={cartItem.id} />
+                ))}
+              </Stack>
             </Stack>
             <Flex direction="column" align="center" flex="1">
               <HStack mt="6" fontWeight="semibold">
@@ -68,7 +76,7 @@ const Cart = () => {
 
                 <Link
                   as={ReactLink}
-                  to="/products"
+                  to="/product"
                   color={mode("orange.500", "orange.200")}
                 >
                   Continue Shopping
