@@ -73,7 +73,6 @@ const Cart = () => {
             <Flex direction="column" align="center" flex="1">
               <HStack mt="6" fontWeight="semibold">
                 <p>or</p>
-
                 <Link
                   as={ReactLink}
                   to="/product"
