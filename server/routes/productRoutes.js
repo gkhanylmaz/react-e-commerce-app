@@ -8,6 +8,17 @@ const getProducts = async (req, res) => {
   res.json(products);
 };
 
+const getProduct = async (req, res) => {
+  const products = await Product.findById(req.params.id);
+  if (products) {
+    res.json(products);
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+};
+
 productRoutes.route("/").get(getProducts);
+productRoutes.route("/:id").get(getProduct);
 
 export default productRoutes;
