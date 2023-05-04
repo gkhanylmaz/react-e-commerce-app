@@ -17,23 +17,13 @@ import {
 
 import { Link as ReactLink } from "react";
 import { useSelector } from "react-redux";
+import CartSummeryOrder from "../components/CartSummeryOrder";
 const Cart = () => {
   const cartActions = useSelector((state) => state.cart);
-  const { error, loading, cart } = cartActions;
+  const { error, cart } = cartActions;
   return (
     <Wrap justify="center">
-      {loading ? (
-        <Stack direction="row" spacing={4}>
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-            alignItems="center"
-          />
-        </Stack>
-      ) : error ? (
+      {error ? (
         <Alert status="error">
           <AlertIcon />
           We are sorry
@@ -71,6 +61,7 @@ const Cart = () => {
               </Stack>
             </Stack>
             <Flex direction="column" align="center" flex="1">
+              <CartSummeryOrder />
               <HStack mt="6" fontWeight="semibold">
                 <p>or</p>
                 <Link

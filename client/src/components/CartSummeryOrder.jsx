@@ -3,7 +3,6 @@ import {
   Button,
   Stack,
   Flex,
-  Box,
   useColorModeValue as mode,
   Text,
   Heading,
@@ -28,35 +27,45 @@ const CartSummeryOrder = () => {
   };
 
   return (
-    <Stack>
-      <Heading>Order Summary</Heading>
+    <Stack border="1px" padding="8" spacing="8" w="full" borderColor="gray.100">
+      <Heading size="md">Order Summary</Heading>
       <Stack>
-        <Flex>
+        <Flex justifyContent="space-between">
           <Text>SubTotal</Text>
-          <Text>{subtotal}</Text>
+          <Text>${subtotal}</Text>
         </Flex>
-        <Flex>
+        <Flex justifyContent="space-between" pt="3">
           <Text>Shipping</Text>
           <Text>
-            {subtotal <= 1000 ? standardShipping : <Badge>Free</Badge>}
+            {subtotal <= 1000 ? (
+              standardShipping
+            ) : (
+              <Badge colorScheme="green">Free</Badge>
+            )}
           </Text>
         </Flex>
-        <Flex>
-          {subtotal <= 1000
-            ? Number(subtotal) + Number(standardShipping)
-            : subtotal}
+        <Flex pt="3" justifyContent="space-between">
+          <Text fontWeight="extrabold" fontSize="xl">
+            Total
+          </Text>
+          <Text fontWeight="extrabold" size="xl">
+            $
+            {subtotal <= 1000
+              ? Number(subtotal) + Number(standardShipping)
+              : subtotal}
+          </Text>
         </Flex>
       </Stack>
       <Button
         rightIcon={<FaArrowRight />}
         colorScheme="orange"
-        as={React}
-        to="/checkout"
+        as={ReactLink}
         isLoading={buttonLoading}
+        to="/checkout"
         size="lg"
         onClick={() => checkHandle()}
       >
-        Chekout
+        Checkout
       </Button>
     </Stack>
   );
